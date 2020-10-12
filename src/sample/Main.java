@@ -4,7 +4,9 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.scene.layout.FlowPane;
 import javafx.geometry.Pos;
@@ -19,8 +21,12 @@ public class Main extends Application {
     public void start(Stage myStage){
         double height = 700;
         double width = 600;
-        // Use a FlowPane for the root node. In this case,
-        // vertical and horizontal gaps of 10.
+        Image imageRock = new Image("file:Rock.png");
+        Image imageScissor = new Image("file:Scissor.png");
+        Image imagePaper = new Image("file:Paper.png");
+        Image imageTie = new Image("file:Tie.png");
+        Image imageWin = new Image("file:Winner.png");
+        Image imageLose = new Image("file:Lose.png");
         FlowPane rootNode = new FlowPane();
 
         // Center the controls in the scene.
@@ -33,19 +39,53 @@ public class Main extends Application {
         myScene.getStylesheets().add("stylesheet.css");
 
         // Give the stage a title.
-        myStage.setTitle("Sten Sax Påse");
+        myStage.setTitle("Rock Paper Scissor");
 
-        GridPane computerSide = new GridPane();
+        //Drawing a Rectangle
+        Rectangle shape1 = new Rectangle();
+        //Setting the properties of the rectangle
+        shape1.setWidth(150.0f);
+        shape1.setHeight(150.0f);
+        shape1.setX((width/2)-(shape1.getWidth()/2));
+        shape1.setY(70.0f);
+        //Setting other properties
+        shape1.setFill(new ImagePattern(imageRock));
+
+        Rectangle shape2=new Rectangle();
+        shape2.setWidth(100.0f);
+        shape2.setHeight(40.0f);
+        shape2.setX((width/2)-(shape2.getWidth()/2));
+        shape2.setY(270.0f);
+        //Setting other properties
+        shape2.setFill(new ImagePattern(imageTie));
+
+        Rectangle shape3=new Rectangle();
+        shape3.setWidth(150.0f);
+        shape3.setHeight(150.0f);
+        shape3.setX((width/2)-(shape3.getWidth()/2));
+        shape3.setY(70.0f);
+        //Setting other properties
+        shape3.setFill(new ImagePattern(imagePaper));
+
+        Rectangle shape4=new Rectangle();
+        shape4.setWidth(100.0f);
+        shape4.setHeight(40.0f);
+        shape4.setX((width/2)-(shape4.getWidth()/2));
+        shape4.setY(-20);
+        //Setting other properties
+        shape4.setFill(new ImagePattern(imageTie));
+
+        Pane computerSide = new Pane();
         computerSide.getStyleClass().add("computer");
         computerSide.setPrefSize(width, 5*(height/12));
-        
-        GridPane playerSide = new GridPane();
+        computerSide.getChildren().addAll(shape1, shape2);
+
+        Pane playerSide = new Pane();
         playerSide.getStyleClass().add("player");
         playerSide.setPrefSize(width, 5*(height/12));
-
+        playerSide.getChildren().addAll(shape3, shape4);
 
         // Create a button that gets the text.
-        Image imageRock = new Image("file:Rock.png");
         ImageView rockView = new ImageView(imageRock);
         rockView.setFitHeight(80);
         rockView.setFitWidth(80);
@@ -53,7 +93,6 @@ public class Main extends Application {
         btnRock.getStyleClass().add("choice");
         btnRock.setPrefSize(80, 80);
 
-        Image imageScissor = new Image("file:Scissor.png");
         ImageView scissorView = new ImageView(imageScissor);
         scissorView.setFitHeight(80);
         scissorView.setFitWidth(80);
@@ -61,7 +100,6 @@ public class Main extends Application {
         btnScissor.getStyleClass().add("choice");
         btnScissor.setPrefSize(80, 80);
 
-        Image imagePaper = new Image("file:Paper.png");
         ImageView paperView = new ImageView(imagePaper);
         paperView.setFitHeight(80);
         paperView.setFitWidth(80);
@@ -80,6 +118,7 @@ public class Main extends Application {
 
         // Set the scene on the stage.
         myStage.setScene(myScene);
+        myStage.setResizable(false);
         myStage.show();
     }
 }
