@@ -1,10 +1,6 @@
 <component name="libraryTable">
   <library name="activation">
-    <CLASSES>
-      <root url="jar://$USER_HOME$/Downloads/mailactivation/activation.jar!/" />
-      <root url="jar://$USER_HOME$/Downloads/mailactivation/mail.jar!/" />
-      <root url="file://$PROJECT_DIR$/../.." />
-    </CLASSES>
+    <CLASSES />
     <JAVADOC />
     <SOURCES>
       <root url="file://$PROJECT_DIR$/../../Klasser-lektion/src" />
@@ -17,7 +13,6 @@
       <root url="file://$PROJECT_DIR$/../../javafx/src" />
       <root url="file://$PROJECT_DIR$/../.." />
     </SOURCES>
-    <jarDirectory url="file://$PROJECT_DIR$/../.." recursive="false" />
     <jarDirectory url="file://$PROJECT_DIR$/../.." recursive="false" type="SOURCES" />
   </library>
 </component>
