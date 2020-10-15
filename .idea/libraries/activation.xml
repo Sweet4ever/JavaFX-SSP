@@ -1,0 +1,23 @@
+<component name="libraryTable">
+  <library name="activation">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/mailactivation/activation.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/mailactivation/mail.jar!/" />
+      <root url="file://$PROJECT_DIR$/../.." />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../../Klasser-lektion/src" />
+      <root url="file://$PROJECT_DIR$/../../Labb 1 oskar-pilborg/src" />
+      <root url="file://$PROJECT_DIR$/../../Labb 2/src" />
+      <root url="file://$PROJECT_DIR$/../../Lektion2/src" />
+      <root url="file://$PROJECT_DIR$/../../Sten sax påse/src" />
+      <root url="file://$PROJECT_DIR$/src" />
+      <root url="file://$PROJECT_DIR$/../../helloworld/src" />
+      <root url="file://$PROJECT_DIR$/../../javafx/src" />
+      <root url="file://$PROJECT_DIR$/../.." />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/../.." recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../.." recursive="false" type="SOURCES" />
+  </library>
+</component>

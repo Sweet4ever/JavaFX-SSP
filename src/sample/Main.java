@@ -1,7 +1,10 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -12,27 +15,29 @@ import javafx.scene.layout.FlowPane;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 
+
 public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
     }
+    public static int res;
+    public static int playerScore = 0;
+    public static int computerScore = 0;
 
     public void start(Stage myStage){
         double height = 700;
         double width = 600;
-        Image imageRock = new Image("file:Rock.png");
-        Image imageScissor = new Image("file:Scissor.png");
-        Image imagePaper = new Image("file:Paper.png");
-        Image imageTie = new Image("file:Tie.png");
+        Image[] choiceArray = new Image[]{new Image("file:Rock.png"), new Image("file:Scissor.png"), new Image("file:Paper.png")};
         Image imageWin = new Image("file:Winner.png");
         Image imageLose = new Image("file:Lose.png");
+        Image imageTie = new Image("file:Tie.png");
         FlowPane rootNode = new FlowPane();
 
         // Center the controls in the scene.
         rootNode.setAlignment(Pos.CENTER);
-        rootNode.setPrefWrapLength(600);
-        rootNode.setPrefHeight(700);
+        rootNode.setPrefWrapLength(width);
+        rootNode.setPrefHeight(height);
 
         // Create a scene.
         Scene myScene = new Scene(rootNode, width, height);
@@ -49,7 +54,7 @@ public class Main extends Application {
         shape1.setX((width/2)-(shape1.getWidth()/2));
         shape1.setY(70.0f);
         //Setting other properties
-        shape1.setFill(new ImagePattern(imageRock));
+        shape1.setFill(new ImagePattern(choiceArray[0]));
 
         Rectangle shape2=new Rectangle();
         shape2.setWidth(100.0f);
@@ -65,7 +70,7 @@ public class Main extends Application {
         shape3.setX((width/2)-(shape3.getWidth()/2));
         shape3.setY(70.0f);
         //Setting other properties
-        shape3.setFill(new ImagePattern(imagePaper));
+        shape3.setFill(new ImagePattern(choiceArray[0]));
 
         Rectangle shape4=new Rectangle();
         shape4.setWidth(100.0f);
@@ -75,37 +80,135 @@ public class Main extends Application {
         //Setting other properties
         shape4.setFill(new ImagePattern(imageTie));
 
+        TextField computerPoints = new TextField();
+        computerPoints.setEditable(false);
+        computerPoints.setPrefSize(40, 40);
+        computerPoints.getStyleClass().add("textField");
+        computerPoints.setText(String.valueOf(computerScore));
+        computerPoints.setAlignment(Pos.CENTER);
+
         Pane computerSide = new Pane();
         computerSide.getStyleClass().add("computer");
         computerSide.setPrefSize(width, 5*(height/12));
-        computerSide.getChildren().addAll(shape1, shape2);
+        computerSide.getChildren().addAll(shape1, shape2, computerPoints);
+
+        TextField playerPoints = new TextField();
+        playerPoints.setEditable(false);
+        playerPoints.setPrefSize(40, 40);
+        playerPoints.getStyleClass().add("textField");
+        playerPoints.setText(String.valueOf(playerScore));
+        playerPoints.setAlignment(Pos.CENTER);
 
         Pane playerSide = new Pane();
         playerSide.getStyleClass().add("player");
         playerSide.setPrefSize(width, 5*(height/12));
-        playerSide.getChildren().addAll(shape3, shape4);
+        playerSide.getChildren().addAll(shape3, shape4, playerPoints);
 
         // Create a button that gets the text.
-        ImageView rockView = new ImageView(imageRock);
+        ImageView rockView = new ImageView(choiceArray[0]);
         rockView.setFitHeight(80);
         rockView.setFitWidth(80);
         Button btnRock = new Button("",rockView);
         btnRock.getStyleClass().add("choice");
         btnRock.setPrefSize(80, 80);
+        btnRock.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent ae) {
+                shape3.setFill(new ImagePattern(choiceArray[0]));
+                res = Game.rock();
 
-        ImageView scissorView = new ImageView(imageScissor);
+                switch (res){
+                    case 0:
+                        shape2.setFill(new ImagePattern(imageTie));
+                        shape4.setFill(new ImagePattern(imageTie));
+                        shape1.setFill(new ImagePattern(choiceArray[Game.computerChoice]));
+                        break;
+                    case 1:
+                        shape2.setFill(new ImagePattern(imageWin));
+                        shape4.setFill(new ImagePattern(imageWin));
+                        shape1.setFill(new ImagePattern(choiceArray[Game.computerChoice]));
+                        playerScore++;
+                        playerPoints.setText(String.valueOf(playerScore));
+                        break;
+                    case 2:
+                        shape2.setFill(new ImagePattern(imageLose));
+                        shape4.setFill(new ImagePattern(imageLose));
+                        shape1.setFill(new ImagePattern(choiceArray[Game.computerChoice]));
+                        computerScore++;
+                        computerPoints.setText(String.valueOf(computerScore));
+                        break;
+                }
+            }
+        });
+
+        ImageView scissorView = new ImageView(choiceArray[1]);
         scissorView.setFitHeight(80);
         scissorView.setFitWidth(80);
         Button btnScissor = new Button("", scissorView);
         btnScissor.getStyleClass().add("choice");
         btnScissor.setPrefSize(80, 80);
+        btnScissor.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent ae) {
+                shape3.setFill(new ImagePattern(choiceArray[1]));
+                res = Game.scissor();
 
-        ImageView paperView = new ImageView(imagePaper);
+                switch (res){
+                    case 0:
+                        shape2.setFill(new ImagePattern(imageTie));
+                        shape4.setFill(new ImagePattern(imageTie));
+                        shape1.setFill(new ImagePattern(choiceArray[Game.computerChoice]));
+                        break;
+                    case 1:
+                        shape2.setFill(new ImagePattern(imageWin));
+                        shape4.setFill(new ImagePattern(imageWin));
+                        shape1.setFill(new ImagePattern(choiceArray[Game.computerChoice]));
+                        playerScore++;
+                        playerPoints.setText(String.valueOf(playerScore));
+                        break;
+                    case 2:
+                        shape2.setFill(new ImagePattern(imageLose));
+                        shape4.setFill(new ImagePattern(imageLose));
+                        shape1.setFill(new ImagePattern(choiceArray[Game.computerChoice]));
+                        computerScore++;
+                        computerPoints.setText(String.valueOf(computerScore));
+                        break;
+                }
+            }
+        });
+
+        ImageView paperView = new ImageView(choiceArray[2]);
         paperView.setFitHeight(80);
         paperView.setFitWidth(80);
         Button btnPaper = new Button("", paperView);
         btnPaper.getStyleClass().add("choice");
         btnPaper.setPrefSize(80, 80);
+        btnPaper.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent ae) {
+                shape3.setFill(new ImagePattern(choiceArray[2]));
+                res = Game.paper();
+
+                switch (res){
+                    case 0:
+                        shape2.setFill(new ImagePattern(imageTie));
+                        shape4.setFill(new ImagePattern(imageTie));
+                        shape1.setFill(new ImagePattern(choiceArray[Game.computerChoice]));
+                        break;
+                    case 1:
+                        shape2.setFill(new ImagePattern(imageWin));
+                        shape4.setFill(new ImagePattern(imageWin));
+                        shape1.setFill(new ImagePattern(choiceArray[Game.computerChoice]));
+                        playerScore++;
+                        playerPoints.setText(String.valueOf(playerScore));
+                        break;
+                    case 2:
+                        shape2.setFill(new ImagePattern(imageLose));
+                        shape4.setFill(new ImagePattern(imageLose));
+                        shape1.setFill(new ImagePattern(choiceArray[Game.computerChoice]));
+                        computerScore++;
+                        computerPoints.setText(String.valueOf(computerScore));
+                        break;
+                }
+            }
+        });
 
         FlowPane btnWrapper = new FlowPane(70, 10);
         btnWrapper.getStyleClass().add("wrapper");
@@ -113,6 +216,8 @@ public class Main extends Application {
         btnWrapper.setPrefWrapLength(width);
         btnWrapper.setPrefHeight(height/6);
         btnWrapper.getChildren().addAll(btnRock, btnScissor, btnPaper);
+
+
 
         rootNode.getChildren().addAll(computerSide, playerSide, btnWrapper);
 

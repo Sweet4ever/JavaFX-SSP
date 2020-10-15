@@ -18,3 +18,12 @@
 .player{
     -fx-background-color: #909bc8;
 }
+
+.textField{
+    -fx-focus-color: transparent;
+    -fx-background-color: lightgrey;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-highlight-fill: null;
+    -fx-highlight-text-fill: null;
+}
